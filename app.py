@@ -51,6 +51,8 @@ states = list(df['state'].unique())
 states.sort()
 cities = list(df['location'].unique())
 cities.sort()
+years = list(df['year'].unique())
+years.sort()
 
 type_groupby = df['type'].value_counts()
 so2_type_groupby = df.groupby('type')['so2'].mean()
@@ -85,21 +87,31 @@ options = [
     'Conclusion'
 ]
 menu = st.sidebar.radio("Select an Option", options)
+
 if menu == options[0]:
     st.title("Air Pollution Data Analysis")
     st.image('image/img1.jpeg',use_column_width=True)
-    st.write("Air pollution is the phenomena which is caused when the pollutants are release in the air which cause adverse effect to human health on the planet as a whole.  Air pollution is one of the significant problems Railway for any Nation.  air pollutants can be gases,  particulates and organic matter which enters into the atmosphere.")
+    st.write("Air pollution as a phenomenon when the atmosphere is contaminated with pollutants such as gases(  Sulphur dioxide (SO2),  Nitrogen dioxide (NO2),etc.), particulates ( respirable suspended particulate matter (RSPM),  etc.), organic matter( Ash, toxins, etc.).  which causes an enormous amount of death per year as well as astronomical amount of economic damage. it causes disease such as respirator diseases,  cardiovascular diseases,  and affect immunity of the body. nowadays air pollution is major issue faced by every country and it is ranked as major cause of death to humans as well as causing adverse effect to the environment.  it can cause and effect like low visibility, respiratory trouble as well as death.")
 if menu == options[1]:
-    st.write(0)
+    st.image('image/img2.jpeg',width=500)
+    st.write("Earlier the air we breathe in use to be pure and fresh. But, due to increasing industrialization and concentration of poisonous gases in the environment the air is getting more and more toxic day by day. Also, these gases are the cause of many respiratory and other diseases. Moreover, the rapidly increasing human activities like the burning of fossil fuels, deforestation is the major cause of air pollution.")
+    st.write("The fossil fuel, firewood, and other things that we burn produce oxides of carbons which got released into the atmosphere. Earlier there happens to be a large number of trees which can easily filter the air we breathe in. But with the increase in demand for land, the people started cutting down of trees which caused deforestation. That ultimately reduced the filtering capacity of the tree.Moreover, during the last few decades, the numbers of fossil fuel burning vehicle increased rapidly which increased the number of pollutants in the air.")
 if menu == options[2]:
-    if st.checkbox("Show Raw Data"):
+    st.header("Data Source")
+    if st.checkbox("Show Cleaned Data"):
         st.write(df)
+    if st.checkbox("Show List of States & Union Territories"):
+        st.text('List of States & Union Territories')
+        st.write(states)
+    if st.checkbox("Show List of Cities"):
+        st.text('List of Cities')
+        st.write(cities)
+    if st.checkbox("Show Range of Years"):
+        st.text('List of Years')
+        st.write(years)
 
-    st.text('List of States & Union Territories')
-    st.write(states)
-    st.text('List of Cities')
-    st.write(cities)
 if menu == options[3]:
+    st.header("AreaType Wise Data Representation")
     df1 = pd.DataFrame(type_groupby)
     df2 = pd.DataFrame(so2_type_groupby)
     df3 = pd.DataFrame(no2_type_groupby)
@@ -109,21 +121,27 @@ if menu == options[3]:
     if st.checkbox("Show Type Wise Data"):
         st.write(type_df)
 
-    cols = ['type', 'so2', 'no2', 'rspm']
+    cols = ['Type Count', 'SO2', 'NO2', 'RSPM']
     choice = st.selectbox("select a columns", cols)
 
     if choice == cols[0]:
+        st.subheader("Type Wise Count")
         st.bar_chart(df1, width=2, height=450, use_container_width=True)
     if choice == cols[1]:
+        st.subheader("Type Wise SO2 Distribution")
         st.bar_chart(type_df.so2, width=2, height=450,
                      use_container_width=True)
     if choice == cols[2]:
+        st.subheader("Type Wise NO2 Distribution")
         st.bar_chart(type_df.no2, width=2, height=450,
                      use_container_width=True)
     if choice == cols[3]:
+        st.subheader("Type Wise RSPM Distribution")
         st.bar_chart(type_df.rspm, width=2, height=450,
                      use_container_width=True)
+
 if menu == options[4]:
+    st.header("State Wise Data Representation")
     df1 = pd.DataFrame(so2_state_groupby)
     df2 = pd.DataFrame(no2_state_groupby)
     df3 = pd.DataFrame(rspm_state_groupby)
@@ -134,19 +152,23 @@ if menu == options[4]:
     if st.checkbox("Show State Wise Data"):
         st.write(state_df)
 
-    cols = ['so2', 'no2', 'rspm']
+    cols = ['SO2', 'NO2', 'RSPM']
     choice = st.selectbox("select a columns", cols)
 
     if choice == cols[0]:
+        st.subheader("State Wise SO2 Distribution")
         st.bar_chart(state_df.so2, width=2, height=450,
                      use_container_width=True)
     if choice == cols[1]:
+        st.subheader("State Wise NO2 Distribution")
         st.bar_chart(state_df.no2, width=2, height=450,
                      use_container_width=True)
     if choice == cols[2]:
+        st.subheader("State Wise RSPM Distribution")
         st.bar_chart(state_df.rspm, width=2, height=450,
                      use_container_width=True)
 if menu == options[5]:
+    st.header("City Wise Data Representation")
     df1 = pd.DataFrame(so2_location_groupby)
     df2 = pd.DataFrame(no2_location_groupby)
     df3 = pd.DataFrame(rspm_location_groupby)
@@ -181,25 +203,30 @@ if menu == options[5]:
     rspm_location_groupby2['index'] = rspm_location_groupby2.reset_index(
         level=0, inplace=True)
 
-    cols = ['so2', 'no2', 'rspm']
+    cols = ['SO2', 'NO2', 'RSPM']
     choice = st.selectbox("select a columns", cols)
 
     if choice == cols[0]:
+        st.subheader("City Wise SO2 Distribution")
         f, ax = plt.subplots(figsize=(25, 12))
         ax = sns.barplot(x="location", y="so2",
                          data=so2_location_groupby2, ax=ax)
         st.write(f)
     if choice == cols[1]:
+        st.subheader("City Wise NO2 Distribution")
         f, ax = plt.subplots(figsize=(25, 12))
         ax = sns.barplot(x="location", y="no2",
                          data=no2_location_groupby2, ax=ax)
         st.write(f)
     if choice == cols[2]:
+        st.subheader("City Wise RSPM Distribution")
         f, ax = plt.subplots(figsize=(25, 12))
         ax = sns.barplot(x="location", y="rspm",
                          data=rspm_location_groupby2, ax=ax)
         st.write(f)
+
 if menu == options[6]:
+    st.header("Year Wise Data Representation")
     df1 = pd.DataFrame(so2_year_groupby)
     df2 = pd.DataFrame(no2_year_groupby)
     df3 = pd.DataFrame(rspm_year_groupby)
@@ -208,19 +235,24 @@ if menu == options[6]:
     if st.checkbox("Show Year Wise Data"):
         st.write(year_df)
 
-    cols = ['so2', 'no2', 'rspm']
+    cols = ['SO2', 'NO2', 'RSPM']
     choice = st.selectbox("select a columns", cols)
 
     if choice == cols[0]:
+        st.subheader("Year Wise SO2 Distribution")
         st.bar_chart(year_df.so2, width=2, height=450,
                      use_container_width=True)
     if choice == cols[1]:
+        st.subheader("Year Wise NO2 Distribution")
         st.bar_chart(year_df.no2, width=2, height=450,
                      use_container_width=True)
     if choice == cols[2]:
+        st.subheader("Year Wise RSPM Distribution")
         st.bar_chart(year_df.rspm, width=2, height=450,
                      use_container_width=True)
+
 if menu == options[7]:
+    st.header("Geo Visualization Data Representation")
     df1 = pd.DataFrame(so2_state_groupby)
     df2 = pd.DataFrame(no2_state_groupby)
     df3 = pd.DataFrame(rspm_state_groupby)
@@ -231,10 +263,11 @@ if menu == options[7]:
     if st.checkbox("Show Data"):
         st.write(sloc)
 
-    cols = ['so2', 'no2', 'rspm']
+    cols = ['SO2', 'NO2', 'RSPM']
     choice = st.selectbox("select a columns", cols)
 
     if choice == cols[0]:
+        st.subheader("Geo Visualization SO2 Distribution")
         wmap = folium.Map(location=[25, 80], zoom_start=4)
         wmap.choropleth(
             geo_data='india_states.json',
@@ -250,6 +283,7 @@ if menu == options[7]:
         folium_static(wmap)
 
     if choice == cols[1]:
+        st.subheader("Geo Visualization NO2 Distribution")
         wmap = folium.Map(location=[25, 80], zoom_start=4)
         wmap.choropleth(
             geo_data='india_states.json',
@@ -264,6 +298,7 @@ if menu == options[7]:
         )
         folium_static(wmap)
     if choice == cols[2]:
+        st.subheader("Geo Visualization RSPM Distribution")
         wmap = folium.Map(location=[25, 80], zoom_start=4)
         wmap.choropleth(
             geo_data='india_states.json',
@@ -277,7 +312,9 @@ if menu == options[7]:
             legend_name='RSPM Distribution Across India'
         )
         folium_static(wmap)
+
 if menu == options[8]:
+    st.header("Relation Between State & Year")
     so2_year_state = df.pivot_table('so2', index='state', columns=[
                                     'year'], aggfunc='mean', fill_value=0, margins=True)
     so2_year_state.fillna(0, inplace=True)
@@ -287,23 +324,27 @@ if menu == options[8]:
     rspm_year_state = df.pivot_table('rspm', index='state', columns=[
                                      'year'], aggfunc='mean', fill_value=0, margins=True)
     rspm_year_state.fillna(0, inplace=True)
-    if st.checkbox("Relation of so2 Between State & Year"):
+    if st.checkbox("Relation of SO2 Between State & Year"):
+        st.subheader("Heatmap of SO2 Between State & Year")
         f, ax = plt.subplots(figsize=(25, 12))
         ax.set_title('{} by state and year'.format('so2'))
         sns.heatmap(so2_year_state, annot=True, cmap="YlOrRd", fmt='.3g', mask=so2_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
-    if st.checkbox("Relation of no2 Between State & Year"):
+    if st.checkbox("Relation of NO2 Between State & Year"):
+        st.subheader("Heatmap of NO2 Between State & Year")
         f, ax = plt.subplots(figsize=(25, 12))
         ax.set_title('{} by state and year'.format('no2'))
         sns.heatmap(no2_year_state, annot=True, cmap="YlOrRd", fmt='.3g', mask=no2_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
-    if st.checkbox("Relation of rspm Between State & Year"):
+    if st.checkbox("Relation of RSPM Between State & Year"):
+        st.subheader("Heatmap of RSPM Between State & Year")
         f, ax = plt.subplots(figsize=(15, 7))
         ax.set_title('{} by state and year'.format('rspm'))
         sns.heatmap(rspm_year_state, annot=True, cmap="YlOrRd", fmt='.3g', mask=rspm_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
+        
 if menu == options[9]:
     st.write(0)

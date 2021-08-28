@@ -111,7 +111,7 @@ if menu == options[2]:
         st.write(years)
 
 if menu == options[3]:
-    st.header("AreaType Wise Data Representation")
+    st.header("Area Type Wise Data Representation")
     df1 = pd.DataFrame(type_groupby)
     df2 = pd.DataFrame(so2_type_groupby)
     df3 = pd.DataFrame(no2_type_groupby)

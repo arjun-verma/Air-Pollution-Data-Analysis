@@ -17,7 +17,6 @@ def load_data():
     df['type'] = df['type'].fillna('Others')
     df['location'].fillna(df.location.mode()[0], inplace=True)
     df['date'].fillna(df.date.mode()[0], inplace=True)
-
     df['type'].replace('Residential, Rural and other Areas','Residential', inplace=True)
     df['type'].replace('Residential and others', 'Residential', inplace=True)
     df['type'].replace('Industrial Areas', 'Industrial', inplace=True)
@@ -37,13 +36,13 @@ def load_data():
     df.replace(to_replace='Navi Mumbai', value='Mumbai', inplace=True)
     df.replace(to_replace='Bombay', value='Mumbai', inplace=True)
     df.replace(to_replace='andaman-and-nicobar-islands',value='Andaman & Nicobar Islands', inplace=True)
+    df.replace(to_replace='Uttaranchal',value='Uttarakhand', inplace=True)
 
     df['date'] = pd.to_datetime(df['date'])
     df['year'] = df['date'].dt.year
     df.drop('date', axis=1, inplace=True)
 
     return df
-
 
 df = load_data()
 limit = 100
@@ -68,12 +67,10 @@ no2_location_groupby = df.groupby('location')['no2'].mean()
 rspm_location_groupby = df.groupby('location')['rspm'].mean()
 
 so2_year_groupby = df.groupby('year')['so2'].mean()
-
 no2_year_groupby = df.groupby('year')['no2'].mean()
 rspm_year_groupby = df.groupby('year')['rspm'].mean()
 
 st.sidebar.title("Air Pollution data Analysis")
-# menu
 options = [
     'Introduction',
     'About',
@@ -96,6 +93,7 @@ if menu == options[1]:
     st.image('image/img2.jpeg',width=500)
     st.write("Earlier the air we breathe in use to be pure and fresh. But, due to increasing industrialization and concentration of poisonous gases in the environment the air is getting more and more toxic day by day. Also, these gases are the cause of many respiratory and other diseases. Moreover, the rapidly increasing human activities like the burning of fossil fuels, deforestation is the major cause of air pollution.")
     st.write("The fossil fuel, firewood, and other things that we burn produce oxides of carbons which got released into the atmosphere. Earlier there happens to be a large number of trees which can easily filter the air we breathe in. But with the increase in demand for land, the people started cutting down of trees which caused deforestation. That ultimately reduced the filtering capacity of the tree.Moreover, during the last few decades, the numbers of fossil fuel burning vehicle increased rapidly which increased the number of pollutants in the air.")
+
 if menu == options[2]:
     st.header("Data Source")
     if st.checkbox("Show Cleaned Data"):
@@ -269,7 +267,7 @@ if menu == options[7]:
     if choice == cols[0]:
         st.subheader("Geo Visualization SO2 Distribution")
         wmap = folium.Map(location=[25, 80], zoom_start=4)
-        wmap.choropleth(
+        folium.Choropleth(
             geo_data='india_states.json',
             name='choropleth',
             data=sloc,
@@ -278,14 +276,14 @@ if menu == options[7]:
             fill_color='YlOrRd',
             fill_opacity=0.75,
             line_opacity=0.3,
-            legend_name='SO2 Distribution Across India'
-        )
+            legend_name='so2 Distribution Across India'
+        ).add_to(wmap)
         folium_static(wmap)
 
     if choice == cols[1]:
         st.subheader("Geo Visualization NO2 Distribution")
         wmap = folium.Map(location=[25, 80], zoom_start=4)
-        wmap.choropleth(
+        folium.Choropleth(
             geo_data='india_states.json',
             name='choropleth',
             data=sloc,
@@ -294,13 +292,13 @@ if menu == options[7]:
             fill_color='YlOrRd',
             fill_opacity=0.75,
             line_opacity=0.3,
-            legend_name='NO2 Distribution Across India'
-        )
+            legend_name='no2 Distribution Across India'
+        ).add_to(wmap)
         folium_static(wmap)
     if choice == cols[2]:
         st.subheader("Geo Visualization RSPM Distribution")
         wmap = folium.Map(location=[25, 80], zoom_start=4)
-        wmap.choropleth(
+        folium.Choropleth(
             geo_data='india_states.json',
             name='choropleth',
             data=sloc,
@@ -310,11 +308,13 @@ if menu == options[7]:
             fill_opacity=0.75,
             line_opacity=0.3,
             legend_name='RSPM Distribution Across India'
-        )
+        ).add_to(wmap)
         folium_static(wmap)
 
 if menu == options[8]:
     st.header("Relation Between State & Year")
+    cols = ['SO2', 'NO2', 'RSPM']
+    choice = st.selectbox("select a columns", cols)
     so2_year_state = df.pivot_table('so2', index='state', columns=[
                                     'year'], aggfunc='mean', fill_value=0, margins=True)
     so2_year_state.fillna(0, inplace=True)
@@ -324,27 +324,28 @@ if menu == options[8]:
     rspm_year_state = df.pivot_table('rspm', index='state', columns=[
                                      'year'], aggfunc='mean', fill_value=0, margins=True)
     rspm_year_state.fillna(0, inplace=True)
-    if st.checkbox("Relation of SO2 Between State & Year"):
+    if choice == cols[0]:
         st.subheader("Heatmap of SO2 Between State & Year")
-        f, ax = plt.subplots(figsize=(25, 12))
+        f, ax = plt.subplots(figsize=(25,12))
         ax.set_title('{} by state and year'.format('so2'))
-        sns.heatmap(so2_year_state, annot=True, cmap="YlOrRd", fmt='.3g', mask=so2_year_state.isnull(
+        sns.heatmap(so2_year_state, annot=True, cmap="YlGnBu", fmt='.3g', mask=so2_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
-    if st.checkbox("Relation of NO2 Between State & Year"):
+    if choice == cols[1]:
         st.subheader("Heatmap of NO2 Between State & Year")
         f, ax = plt.subplots(figsize=(25, 12))
         ax.set_title('{} by state and year'.format('no2'))
-        sns.heatmap(no2_year_state, annot=True, cmap="YlOrRd", fmt='.3g', mask=no2_year_state.isnull(
+        sns.heatmap(no2_year_state, annot=True, cmap="YlGnBu", fmt='.3g', mask=no2_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
-    if st.checkbox("Relation of RSPM Between State & Year"):
+    if choice == cols[2]:
         st.subheader("Heatmap of RSPM Between State & Year")
         f, ax = plt.subplots(figsize=(15, 7))
         ax.set_title('{} by state and year'.format('rspm'))
-        sns.heatmap(rspm_year_state, annot=True, cmap="YlOrRd", fmt='.3g', mask=rspm_year_state.isnull(
+        sns.heatmap(rspm_year_state, annot=True, cmap="YlGnBu", fmt='.3g', mask=rspm_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
         
 if menu == options[9]:
     st.write(0)
+

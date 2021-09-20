@@ -347,5 +347,5 @@ if menu == options[8]:
         st.write(f)
         
 if menu == options[9]:
-    st.write(0)
+    st.write("There has been a gradual increase and then gradual decrease in level of SO2, NO2, RSPM in various states while few states have either maintained above average level or increse in the level of SO2, NO2, RSPM.")
 

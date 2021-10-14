@@ -125,18 +125,22 @@ if menu == options[3]:
     if choice == cols[0]:
         st.subheader("Type Wise Count")
         st.bar_chart(df1, width=2, height=450, use_container_width=True)
+        st.write("In the above bar plot of Type Wise Count, it can observe that the residential area has the highest count at 265963, followed by industrial at 148071, and sensitive at 15011. residential and industrial are also the major contributor towards air pollution in India.")
     if choice == cols[1]:
         st.subheader("Type Wise SO2 Distribution")
         st.bar_chart(type_df.so2, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of Type Wise SO2 Distribution we can observe that other at second lowest count at 5393 has the highest amount of SO2 at 16.49, but the second major contributor remains to be industrial at 13.42, rural lowest counter 1304 is the third highest at 10.92 while the residential with the highest count is at 9.5.")
     if choice == cols[2]:
         st.subheader("Type Wise NO2 Distribution")
         st.bar_chart(type_df.no2, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of Type Wise NO2 Distribution we can observe that rural has highest sound followed by industrial, others and residential at 31.78, 29.5, 27.6 and 24 respectively.")
     if choice == cols[3]:
         st.subheader("Type Wise RSPM Distribution")
         st.bar_chart(type_df.rspm, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of Type Wise RSPM Distribution we can observe that industrial contributes the highest level of RSPM at 122 followed by rural at 103.6, residential at 102.4 and sensitive at 99.5.")
 
 if menu == options[4]:
     st.header("State Wise Data Representation")
@@ -157,14 +161,17 @@ if menu == options[4]:
         st.subheader("State Wise SO2 Distribution")
         st.bar_chart(state_df.so2, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of State Wise SO2 Distribution we can observe that Uttarakhand has the highest level of SO2 at 24.43 followed by Jharkhand at 23.49, Sikkim at 19.8, Bihar at 19.40 and in Maharashtra at 17.4, the lowest level of SO2 can be observe in Nagaland at 2.1.")
     if choice == cols[1]:
         st.subheader("State Wise NO2 Distribution")
         st.bar_chart(state_df.no2, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of State Wise NO2 Distribution we can observe that West Bengal has highest level of NO2 at 59.1 followed by Delhi at 53.5, Jharkhand at 43.4, Bihar 36.6 and Maharashtra at 32.1, the lowest level of NO2 can be observed in the state of Arunachal Pradesh at 5.5.")
     if choice == cols[2]:
         st.subheader("State Wise RSPM Distribution")
         st.bar_chart(state_df.rspm, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of State Wise RSPM Distribution we can observe that Delhi has highest level of rspm at 196.7 followed by Uttar Pradesh at 177, Punjab at 173.5, Jharkhand at 168.51 and Haryana at 150, the lowest level of rspm is observed in the state of Sikkim at 32.")
 if menu == options[5]:
     st.header("City Wise Data Representation")
     df1 = pd.DataFrame(so2_location_groupby)
@@ -210,18 +217,21 @@ if menu == options[5]:
         ax = sns.barplot(x="location", y="so2",
                          data=so2_location_groupby2, ax=ax)
         st.write(f)
+        st.write("In the above bar plot of City Wise SO2 Distribution it can observed that among the 20 city with highest level of SO2 is in byrnihat(Meghalaya) at 45.47 followed by gajroula(Uttar Pradesh), Jamshedpur(Jharkhand) 38.18, nanded( Maharashtra) at 38.1 and dharuhera(Haryana) at 37.8, Railways level in Ghaziabad(Uttar Pradesh) at 24.1.")
     if choice == cols[1]:
         st.subheader("City Wise NO2 Distribution")
         f, ax = plt.subplots(figsize=(25, 12))
         ax = sns.barplot(x="location", y="no2",
                          data=no2_location_groupby2, ax=ax)
         st.write(f)
+        st.write("In the above bar plot of City Wise NO2 Distribution it can observed that among the 20 city with highest level of NO2 is in Howrah( West Bengal) at 78 followed by badlapur( Maharashtra) at 64.5, Dombivli( Maharashtra) at 60.5, UlhasNagar( Maharashtra) at 59.8, Kolkata( West Bengal) at 59.4, the lowest level is in Jalgaon( Maharashtra) at 45.1.")
     if choice == cols[2]:
         st.subheader("City Wise RSPM Distribution")
         f, ax = plt.subplots(figsize=(25, 12))
         ax = sns.barplot(x="location", y="rspm",
                          data=rspm_location_groupby2, ax=ax)
         st.write(f)
+        st.write("In the above bar plot of City Wise RSPM Distribution it can observed that among the 20 city with highest level of rspm is in Ghaziabad( Uttar Pradesh) at 250.5 followed by West singhbhum( Jharkhand) at 246.41, Bareilly( Uttar Pradesh) at 233.1, Allahabad( Uttar Pradesh) at 230.8, Ludhiana( Punjab) at 218.6, the lowest level is in Yamuna Nagar( Haryana) at 177.6.")
 
 if menu == options[6]:
     st.header("Year Wise Data Representation")
@@ -240,14 +250,17 @@ if menu == options[6]:
         st.subheader("Year Wise SO2 Distribution")
         st.bar_chart(year_df.so2, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of Year Wise SO2 Distribution we can observe that the SO2 level highest in year 1995 at 26 followed by year 1994 at 22.5, year 1988 at 22.1, year 1993 at 22, year 1987 at 21.8, the lowest level of SO2 is observed in year 2003 at 6.6.")
     if choice == cols[1]:
         st.subheader("Year Wise NO2 Distribution")
         st.bar_chart(year_df.no2, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of Year Wise NO2 Distribution we can observe that the highest level of NO2 is observed in year 1995 at 33.1 followed by year 1994 at 31.8, year 1992 at 30.8, year 1988 8 30.6, year 1987 at 30.5, lowest level of NO2 is observed in year 2003 at 21.5.")
     if choice == cols[2]:
         st.subheader("Year Wise RSPM Distribution")
         st.bar_chart(year_df.rspm, width=2, height=450,
                      use_container_width=True)
+        st.write("In the above bar plot of Year Wise RSPM Distribution we can observe that the highest level of RSPM is in year 2004 at 121.15 followed by year 2011 at 115.80,year 2009 at 114.33,year 2008 at 112.87,year 2005 at 111.49, the lowest level of RSPM is present in the year 2003 at 88.70.")
 
 if menu == options[7]:
     st.header("Geo Visualization Data Representation")
@@ -279,6 +292,7 @@ if menu == options[7]:
             legend_name='so2 Distribution Across India'
         ).add_to(wmap)
         folium_static(wmap)
+        st.write("In the above Choropleth of SO2 Distribution we can observe that states like Uttarakhand, Jharkhand have an extreme amount of SO2 present, states like Bihar, Maharashtra, Sikkim have less extreme but still a substantial amount of SO2 present, States like Haryana, Punjab, Delhi, Uttar Pradesh, Gujarat, Karnataka, Tamil Nadu, West Bengal, have more than average amount of SO2 present while states like Himachal Pradesh, Orissa, Kerala, Rajasthan, Andhra Pradesh, Assam, Meghalaya, Arunachal Pradesh, Nagaland, Manipur, Mizoram have below average level of SO2 present.")
 
     if choice == cols[1]:
         st.subheader("Geo Visualization NO2 Distribution")
@@ -295,6 +309,7 @@ if menu == options[7]:
             legend_name='no2 Distribution Across India'
         ).add_to(wmap)
         folium_static(wmap)
+        st.write("In the above Choropleth of NO2 Distribution we can observe that states like Delhi, West Bengal have extreme amount of NO2 present, where as Jharkhand has less extreme but still a substantial amount of NO2 present, Bihar has average level of NO2 present, states like Uttar Pradesh, Uttarakhand, Punjab, Haryana, Rajasthan, Gujarat, Maharashtra, Chhattisgarh have above average level of NO2 present while states like Madhya Pradesh, Orissa, Andhra Pradesh, Karnataka, Kerala, Tamil Nadu, Himachal Pradesh, Arunachal Pradesh, Assam, Manipur have a below average level of NO2 present.")
     if choice == cols[2]:
         st.subheader("Geo Visualization RSPM Distribution")
         wmap = folium.Map(location=[25, 80], zoom_start=4)
@@ -310,6 +325,7 @@ if menu == options[7]:
             legend_name='RSPM Distribution Across India'
         ).add_to(wmap)
         folium_static(wmap)
+        st.write("In the above Choropleth of RSPM Distribution we can observe that States like Uttar Pradesh, Delhi, Punjab have an extreme amount of RSPM present, states like Jammu and Kashmir, Uttarakhand, Haryana, Rajasthan, Jharkhand have less extreme but still a substantial amount of RSPM present, where as states like Himachal Pradesh, Madhya Pradesh, Chhattisgarh, Bihar, West Bengal, Assam have average level of RSPM present, while states like Karnataka Kerala, Tamil Nadu, Andhra Pradesh, Orissa have a below average level of RSPM present.")
 
 if menu == options[8]:
     st.header("Relation Between State & Year")
@@ -331,6 +347,7 @@ if menu == options[8]:
         sns.heatmap(so2_year_state, annot=True, cmap="YlGnBu", fmt='.3g', mask=so2_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
+        st.write("In the above heatmap of SO2 Between State & Year we can observe that Goa in year 1995 has the highest recorded value of SO2 present in any state in year between 1987 and 2015, followed by the same in year 1997 and in 1996.")
     if choice == cols[1]:
         st.subheader("Heatmap of NO2 Between State & Year")
         f, ax = plt.subplots(figsize=(25, 12))
@@ -338,6 +355,7 @@ if menu == options[8]:
         sns.heatmap(no2_year_state, annot=True, cmap="YlGnBu", fmt='.3g', mask=no2_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
+        st.write("In the above heatmap of NO2 Between State & Year we can observe that Rajasthan in year 1987 has highest amount of NO2 in any of the states between the year 1987 and 2015 followed by West Bengal in year 1994 and year 1995.")
     if choice == cols[2]:
         st.subheader("Heatmap of RSPM Between State & Year")
         f, ax = plt.subplots(figsize=(15, 7))
@@ -345,6 +363,7 @@ if menu == options[8]:
         sns.heatmap(rspm_year_state, annot=True, cmap="YlGnBu", fmt='.3g', mask=rspm_year_state.isnull(
         ), linewidths=2, ax=ax, cbar_kws={'label': 'Annual Average'})
         st.write(f)
+        st.write("In the above heatmap of RSPM Between State & Year we can observe that Haryana recorded level of RSPM in the year of 2009 followed by Delhi in the same year, and in the year of 2012 and Punjab in year 2003 and 2004.")
         
 if menu == options[9]:
     st.write("Using the above observations, we can conclude that there has been a gradual increase in the level of SO2 in states like Bihar, Haryana, Karnataka, Rajasthan and West Bengal between the year 1987 and 2000 after which there has been a gradual decline and constant below average level in levels of SO2 concentration in the New Century from 2000. It is can also be observed that between year 1987 and 1995 there has been a gradual increase and the level of SO2 which then has gradual decline and are at below average level of concentration. Bihar, Maharashtra, and West Bengal have seen a gradual increase in the level of NO2 between the year 1987 and 2000 and then gradual declination following the new century below average level, while Delhi has only seen a gradual increase in the amount of NO2 to an extreme level, the same in the years between 1987 and 1995 which has seen gradual rise and then gradual fall to below average level following the new century. States like Punjab, Haryana, Chhattisgarh are following the same tendency in RSPM with a gradual rise and then gradual fall between the years 2003 and 2015, while states like Delhi Jharkhand have seen a gradual increase in the level of RSPM. states like Uttar Pradesh, Uttarakhand, West Bengal, Gujarat, Maharashtra maintained above average level of RSPM. the reason for decline in the level of various air pollutants in various states are due to the policies enforced by the government to protect environment. It has been a wonderful experience doing the Summer Internship and making the project based on the guidelines. It has provided me a very useful experience for my future as well as make me understand and learn various new concepts and techniques which were very helpful.")

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(layout="wide")
 
-@st.cache
+@st.cache_data
 def load_data():
     df = pd.read_csv('data/data.csv', encoding='cp1252', low_memory=False)
 
